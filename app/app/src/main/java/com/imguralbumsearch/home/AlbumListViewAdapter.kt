@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.imguralbumsearch.R
 import com.imguralbumsearch.databinding.AlbumItemViewBinding
@@ -35,16 +36,19 @@ class AlbumListViewAdapter(private val onClickAlbumListener: OnClickAlbumListene
         fun bind(album: Album) {
             viewBinding.albumTitle.text = album.title
 
-            // We pick the first image in the album as the thumbnail.
+            // TODO: figure out how to load GIFV file.
             val image = album.images[0]
-            val imageUrl = if (image.type == "video/mp4") {
+            val thumbnailUrl = if (image.mimeType == "video/mp4") {
                 image.gifUrl
             } else {
                 image.url
             }
 
-            Glide.with(viewBinding.root).load(imageUrl).placeholder(R.drawable.image_placeholder)
+            Glide.with(viewBinding.root)
+                .load(thumbnailUrl)
+                .placeholder(R.drawable.image_placeholder)
                 .transition(DrawableTransitionOptions.withCrossFade())
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(viewBinding.albumThumbnail)
 
             viewBinding.root.setOnClickListener {

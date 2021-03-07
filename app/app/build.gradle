@@ -5,6 +5,10 @@ plugins {
     id 'kotlin-kapt'
 }
 
+def clientIdPropertiesFile = rootProject.file("clientid.properties")
+def clientIdProperties = new Properties()
+clientIdProperties.load(new FileInputStream(clientIdPropertiesFile))
+
 android {
     compileSdkVersion 29
 
@@ -16,6 +20,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "CLIENT_ID", clientIdProperties['CLIENT_ID'])
     }
 
     buildTypes {

@@ -67,7 +67,7 @@ class HomeFragment : Fragment(), AlbumListView.AlbumListViewListener {
             fragmentViewBinding.searchBox.windowToken, /* flags= */0
         )
 
-        // Todo: send request to fetch albums.
+        viewModel.searchAlbums(query)
     }
 
     companion object {
