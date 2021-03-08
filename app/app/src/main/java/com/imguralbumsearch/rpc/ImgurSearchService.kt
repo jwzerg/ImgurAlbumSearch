@@ -17,6 +17,7 @@ data class SearchResponse(
 data class Album(
     val id: String,
     val title: String,
+    @SerializedName("images_count") val imagesCount: Int,
     val images: List<Image>
 ) : Parcelable
 

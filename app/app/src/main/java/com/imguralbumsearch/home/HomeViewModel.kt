@@ -50,7 +50,7 @@ class HomeViewModel @Inject constructor(private val imgurSearchService: ImgurSea
 
                 // Filter out albums without images.
                 val albumList =
-                    response.body()!!.albumList.filter { album -> album.images.isNotEmpty() }
+                    response.body()!!.albumList.filter { album -> album.imagesCount > 0 }
 
                 albumListLiveData.postValue(
                     Result.Success(AlbumListViewState(/* showAlbum= */true, albumList))
