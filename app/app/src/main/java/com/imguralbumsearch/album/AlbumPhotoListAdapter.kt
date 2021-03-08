@@ -1,7 +1,9 @@
 package com.imguralbumsearch.album
 
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -44,7 +46,16 @@ class AlbumPhotoListAdapter(
 
             Glide.with(viewBinding.root)
                 .load(thumbnailUrl)
-                .placeholder(R.drawable.image_placeholder)
+                // Use a non-image placeholder so that in the beginning the image won't be cropped
+                // to the size of the placeholder image.
+                .placeholder(
+                    ColorDrawable(
+                        ContextCompat.getColor(
+                            viewBinding.root.context,
+                            R.color.image_placeholder_color
+                        )
+                    )
+                )
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(viewBinding.photo)
