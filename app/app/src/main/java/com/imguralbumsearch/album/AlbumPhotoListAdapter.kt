@@ -57,7 +57,6 @@ class AlbumPhotoListAdapter(
                     )
                 )
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(viewBinding.photo)
 
             viewBinding.root.setOnClickListener {

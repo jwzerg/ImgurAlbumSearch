@@ -48,7 +48,6 @@ class AlbumListViewAdapter(private val onClickAlbumListener: OnClickAlbumListene
                 .load(thumbnailUrl)
                 .placeholder(R.drawable.image_placeholder)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(viewBinding.albumThumbnail)
 
             viewBinding.root.setOnClickListener {
