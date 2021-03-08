@@ -18,7 +18,7 @@ class AlbumActivity : AppCompatActivity() {
 
         // The Activity should be always launched with an Intent. When the intent is null, crash
         // the app immediately so that we can easy know we did something wrong in the code.
-        val album = checkNotNull(intent).getParcelableExtra<Album>(EXTRA_ALBUM)
+        val album = checkNotNull(checkNotNull(intent).getParcelableExtra<Album>(EXTRA_ALBUM))
 
         if (savedInstanceState == null) {
             supportFragmentManager
