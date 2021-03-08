@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.imguralbumsearch.album.AlbumActivity
 import com.imguralbumsearch.databinding.HomeFragmentBinding
 import com.imguralbumsearch.rpc.Album
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +36,8 @@ class HomeFragment : Fragment(), AlbumListView.AlbumListViewListener {
     }
 
     override fun onClickAlbum(album: Album) {
-        // TODO: Navigate to the album page.
+        val intent = AlbumActivity.createIntent(requireContext(), album)
+        startActivity(intent)
     }
 
     private fun setupAlbumListView() {
