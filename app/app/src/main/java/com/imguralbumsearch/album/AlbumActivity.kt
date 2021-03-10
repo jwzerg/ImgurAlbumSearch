@@ -8,6 +8,7 @@ import com.imguralbumsearch.R
 import com.imguralbumsearch.databinding.AlbumActivityBinding
 import com.imguralbumsearch.rpc.Album
 
+/** The container Activity that holds all pages related to a single album. */
 class AlbumActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +18,7 @@ class AlbumActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         // The Activity should be always launched with an Intent. When the intent is null, crash
-        // the app immediately so that we can easy know we did something wrong in the code.
+        // the app immediately so that we can immediately know we did something wrong in the code.
         val album = checkNotNull(checkNotNull(intent).getParcelableExtra<Album>(EXTRA_ALBUM))
 
         if (savedInstanceState == null) {
@@ -38,5 +39,4 @@ class AlbumActivity : AppCompatActivity() {
             }
         }
     }
-
 }

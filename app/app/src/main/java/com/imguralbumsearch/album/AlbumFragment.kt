@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.imguralbumsearch.databinding.AlbumFragmentBinding
 import com.imguralbumsearch.rpc.Album
-import com.imguralbumsearch.rpc.Image
 
-class AlbumFragment : Fragment(), AlbumPhotoListAdapter.OnClickPhotoListener {
+/** The fragment that displays all photos in an album. */
+class AlbumFragment : Fragment() {
 
     private lateinit var fragmentViewBinding: AlbumFragmentBinding
     private lateinit var albumPhotoListAdapter: AlbumPhotoListAdapter
@@ -30,7 +30,7 @@ class AlbumFragment : Fragment(), AlbumPhotoListAdapter.OnClickPhotoListener {
         fragmentViewBinding =
             AlbumFragmentBinding.inflate(inflater, container, /* attachToParent= */false)
 
-        albumPhotoListAdapter = AlbumPhotoListAdapter(album.images, this)
+        albumPhotoListAdapter = AlbumPhotoListAdapter(album.images)
         fragmentViewBinding.photoList.apply {
             adapter = albumPhotoListAdapter
             layoutManager = LinearLayoutManager(
@@ -41,10 +41,6 @@ class AlbumFragment : Fragment(), AlbumPhotoListAdapter.OnClickPhotoListener {
         }
 
         return fragmentViewBinding.root
-    }
-
-    override fun onClickPhoto(image: Image) {
-        // TODO: show this image in a single page.
     }
 
     companion object {

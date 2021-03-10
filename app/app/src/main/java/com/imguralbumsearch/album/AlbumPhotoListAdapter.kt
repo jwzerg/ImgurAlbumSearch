@@ -6,16 +6,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.imguralbumsearch.R
 import com.imguralbumsearch.databinding.PhotoItemViewBinding
 import com.imguralbumsearch.rpc.Image
 
-class AlbumPhotoListAdapter(
-    private val images: List<Image>,
-    private val onClickPhotoListener: OnClickPhotoListener
-) : RecyclerView.Adapter<AlbumPhotoListAdapter.AlbumPhotoViewHolder>() {
+/** An adapter class that binds photo objects to the RecyclerView that displays album photos. */
+class AlbumPhotoListAdapter(private val images: List<Image>) :
+    RecyclerView.Adapter<AlbumPhotoListAdapter.AlbumPhotoViewHolder>() {
 
     override fun getItemCount() = images.size
 
@@ -23,7 +21,7 @@ class AlbumPhotoListAdapter(
         val viewBinding = PhotoItemViewBinding.inflate(
             LayoutInflater.from(parent.context), parent, /* attachToParent= */false
         )
-        return AlbumPhotoViewHolder(viewBinding, onClickPhotoListener)
+        return AlbumPhotoViewHolder(viewBinding)
     }
 
     override fun onBindViewHolder(holder: AlbumPhotoViewHolder, position: Int) {
@@ -31,10 +29,9 @@ class AlbumPhotoListAdapter(
         holder.bind(image)
     }
 
-    class AlbumPhotoViewHolder(
-        private val viewBinding: PhotoItemViewBinding,
-        private val onClickPhotoListener: OnClickPhotoListener
-    ) : RecyclerView.ViewHolder(viewBinding.root) {
+    /** A ViewHolder class that holds the view of a single photo. */
+    class AlbumPhotoViewHolder(private val viewBinding: PhotoItemViewBinding) :
+        RecyclerView.ViewHolder(viewBinding.root) {
 
         fun bind(image: Image) {
             // TODO: figure out how to load GIFV file.
@@ -58,14 +55,6 @@ class AlbumPhotoListAdapter(
                 )
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(viewBinding.photo)
-
-            viewBinding.root.setOnClickListener {
-                onClickPhotoListener.onClickPhoto(image)
-            }
         }
-    }
-
-    interface OnClickPhotoListener {
-        fun onClickPhoto(image: Image)
     }
 }
