@@ -10,6 +10,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.imguralbumsearch.R
 import com.imguralbumsearch.databinding.AlbumItemViewBinding
 import com.imguralbumsearch.rpc.Album
+import com.imguralbumsearch.utils.isVideo
 
 /** An adapter class that binds an album to the view. */
 class AlbumListViewAdapter(private val onClickAlbumListener: OnClickAlbumListener) :
@@ -35,16 +36,9 @@ class AlbumListViewAdapter(private val onClickAlbumListener: OnClickAlbumListene
         fun bind(album: Album) {
             viewBinding.albumTitle.text = album.title
 
-            // TODO: figure out how to load GIFV file.
-            val image = album.images[0]
-            val thumbnailUrl = if (image.mimeType == "video/mp4") {
-                image.gifUrl
-            } else {
-                image.url
-            }
-
+            val photo = album.mediaList.first { media -> !isVideo(media)}
             Glide.with(viewBinding.root)
-                .load(thumbnailUrl)
+                .load(photo.url)
                 .placeholder(R.drawable.image_placeholder)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(viewBinding.albumThumbnail)

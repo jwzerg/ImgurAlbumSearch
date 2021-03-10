@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.imguralbumsearch.rpc.ImgurSearchService
 import com.imguralbumsearch.utils.Result
+import com.imguralbumsearch.utils.isVideo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -48,9 +49,12 @@ class HomeViewModel @Inject constructor(private val imgurSearchService: ImgurSea
             try {
                 val response = imgurSearchService.searchAlbums(query)
 
-                // Filter out albums without images.
+                // Filter out albums without associated multimedia or only has videos.
                 val albumList =
-                    response.body()!!.albumList.filter { album -> album.imagesCount > 0 }
+                    response.body()!!.albumList
+                        .filter { album ->
+                            album.imagesCount > 0 &&
+                                    album.mediaList.any { media -> !isVideo(media) } }
 
                 albumListLiveData.postValue(
                     Result.Success(AlbumListViewState(/* showAlbum= */true, albumList))

@@ -18,19 +18,14 @@ data class Album(
     val id: String,
     val title: String,
     @SerializedName("images_count") val imagesCount: Int,
-    val images: List<Image>
+    @SerializedName("images") val mediaList: List<Media>
 ) : Parcelable
 
 @Parcelize
-data class Image(
+data class Media(
     val id: String,
     @SerializedName("type") val mimeType: String,
     @SerializedName("link") val url: String,
-    /**
-     * Use this url when the mime type is video/mp4.
-     * Note, this field is not always set in the response.
-     */
-    @SerializedName("gifv") val gifUrl: String? = null
 ) : Parcelable
 
 /** The RPC client for calling Imgur gallery search API. */
